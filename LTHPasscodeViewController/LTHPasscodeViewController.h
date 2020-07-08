@@ -35,13 +35,13 @@
  */
 - (void)logoutButtonWasPressed;
 /**
- @brief	  Handle here the retrieval of the duration that needs to pass while app is in background for the lock to be displayed.
+ @brief      Handle here the retrieval of the duration that needs to pass while app is in background for the lock to be displayed.
  @details Called when @c +timerDuration is called and @c +useKeychain:NO was used, but falls back to the Keychain anyway if not implemented.
  @return The duration.
  */
 - (NSTimeInterval)timerDuration;
 /**
- @brief			 Handle here the saving of the duration that needs to pass while the app is in background for the lock to be displayed.
+ @brief             Handle here the saving of the duration that needs to pass while the app is in background for the lock to be displayed.
  @details        Called when @c +saveTimerDuration: is called and @c +useKeychain:NO was used, but falls back to the Keychain anyway if not implemented.
  @param duration The duration.
  */
@@ -329,37 +329,41 @@
 
 // MARK: - Methods
 
+- (UIImage *)imageForFingerPrint;
+
+- (UIImage *)imageForFaceId;
+
 /**
- @brief				Used for displaying the lock. The passcode view is added directly on the keyWindow.
+ @brief                Used for displaying the lock. The passcode view is added directly on the keyWindow.
  @param hasLogout   Set to @c YES for a navBar with a Logout button, set to @c NO for no navBar.
  @param logoutTitle The title of the Logout button.
  */
 - (void)showLockScreenWithAnimation:(BOOL)animated withLogout:(BOOL)hasLogout andLogoutTitle:(NSString *)logoutTitle;
 /**
- @brief				Used for displaying the lock over a view; the lock will have the same size and center as the @c superview.
+ @brief                Used for displaying the lock over a view; the lock will have the same size and center as the @c superview.
  @param superview   The @c view where the lock will be added to and presented over.
  @param hasLogout   Set to @c YES for a navBar with a Logout button, set to @c NO for no navBar.
  @param logoutTitle The title of the Logout button.
  */
 - (void)showLockScreenOver:(UIView *)superview withAnimation:(BOOL)animated withLogout:(BOOL)hasLogout andLogoutTitle:(NSString *)logoutTitle;
 /**
- @brief				   Used for enabling the passcode.
+ @brief                   Used for enabling the passcode.
  @details              The back bar button is hidden by default. Set @c hidesBackButton to @c NO if you want it to be visible.
- @param	viewController The view controller where the passcode view controller will be displayed.
+ @param    viewController The view controller where the passcode view controller will be displayed.
  @param isModal        Set to @c YES to present as a modal, or to @c NO to push on the current nav stack.
  */
 - (void)showForEnablingPasscodeInViewController:(UIViewController *)viewController asModal:(BOOL)isModal;
 /**
- @brief				   Used for changing the passcode.
+ @brief                   Used for changing the passcode.
  @details              The back bar button is hidden by default. Set @c hidesBackButton to @c NO if you want it to be visible.
- @param	viewController The view controller where the passcode view controller will be displayed.
+ @param    viewController The view controller where the passcode view controller will be displayed.
  @param isModal        Set to @c YES to present as a modal, or to @c NO to push on the current nav stack.
  */
 - (void)showForChangingPasscodeInViewController:(UIViewController *)viewController asModal:(BOOL)isModal;
 /**
- @brief				   Used for disabling the passcode.
+ @brief                   Used for disabling the passcode.
  @details              The back bar button is hidden by default. Set @c hidesBackButton to @c NO if you want it to be visible.
- @param	viewController The view controller where the passcode view controller will be displayed.
+ @param    viewController The view controller where the passcode view controller will be displayed.
  @param isModal        Set to @c YES to present as a modal, or to @c NO to push on the current nav stack.
  */
 - (void)showForDisablingPasscodeInViewController:(UIViewController *)viewController asModal:(BOOL)isModal;
@@ -397,12 +401,12 @@
  */
 + (BOOL)doesPasscodeExist;
 /**
- @brief	 Retrieves from the keychain the duration while app is in background after which the lock has to be displayed.
+ @brief     Retrieves from the keychain the duration while app is in background after which the lock has to be displayed.
  @return The duration.
  */
 + (NSTimeInterval)timerDuration;
 /**
- @brief			 Saves in the keychain the duration that needs to pass while app is in background  for the lock to be displayed.
+ @brief             Saves in the keychain the duration that needs to pass while app is in background  for the lock to be displayed.
  @param duration The duration.
  */
 + (void)saveTimerDuration:(NSTimeInterval)duration;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,11 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *thirdDigitField;
 @property (weak, nonatomic) IBOutlet UITextField *fourthDigitField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
+@property (weak, nonatomic) IBOutlet UIButton *biometryButton;
 
 @property (weak, nonatomic) id<PasscodeLockerViewDelegate> passcodeButtonDelegate;
 @property (weak, nonatomic) IBOutlet UIView *passcodeContainerView;
 
 -(NSArray<UITextField *> *) textFieldsArray;
+-(void)configureWithBiometryType:(LABiometryType *)biometryType andFingerImage:(UIImage *)fingerImage andFaceImage:(UIImage *)faceImage;
 @end
 
 NS_ASSUME_NONNULL_END

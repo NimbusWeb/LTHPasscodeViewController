@@ -120,6 +120,7 @@ static const NSInteger LTHMinPasscodeDigits = 4;
 static const NSInteger LTHMaxPasscodeDigits = 10;
 
 #pragma mark - Public, class methods
+
 + (BOOL)doesPasscodeExist {
     return [[self sharedUser] _doesPasscodeExist];
 }
@@ -170,6 +171,13 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
     [[self sharedUser] _useKeychain:useKeychain];
 }
 
+- (UIImage *)imageForFingerPrint {
+    return nil;
+}
+
+- (UIImage *)imageForFaceId {
+    return nil;
+}
 
 #pragma mark - Private methods
 - (void)_close {
@@ -342,29 +350,29 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
     }
 }
 
-- (void)_handleBiometricsFailureAndDisableIt:(BOOL)disableBiometrics {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (disableBiometrics) {
-            self.isUsingBiometrics = NO;
-            self.allowUnlockWithBiometrics = NO;
-        }
-
-        self.useFallbackPasscode = YES;
-        self.animatingView.hidden = NO;
-
-        BOOL usingNavBar = self.isUsingNavBar;
-        NSString *logoutTitle = usingNavBar ? self.navBar.items.firstObject.leftBarButtonItem.title : @"";
-
-        [self _resetUI];
-
-        if (usingNavBar) {
-            self.isUsingNavBar = usingNavBar;
-            [self _setupNavBarWithLogoutTitle:logoutTitle];
-        }
-    });
-
-    self.biometricsContext = nil;
-}
+//- (void)_handleBiometricsFailureAndDisableIt:(BOOL)disableBiometrics {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (disableBiometrics) {
+//            self.isUsingBiometrics = NO;
+//            self.allowUnlockWithBiometrics = NO;
+//        }
+//
+//        self.useFallbackPasscode = YES;
+//        self.animatingView.hidden = NO;
+//
+//        BOOL usingNavBar = self.isUsingNavBar;
+//        NSString *logoutTitle = usingNavBar ? self.navBar.items.firstObject.leftBarButtonItem.title : @"";
+//
+//        [self _resetUI];
+//
+//        if (usingNavBar) {
+//            self.isUsingNavBar = usingNavBar;
+//            [self _setupNavBarWithLogoutTitle:logoutTitle];
+//        }
+//    });
+//
+//    self.biometricsContext = nil;
+//}
 
 - (void)_setupFingerPrint {
     if (!self.biometricsContext && _allowUnlockWithBiometrics && !_useFallbackPasscode) {
@@ -392,16 +400,17 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
                                           reply:^(BOOL success, NSError *error) {
 
                                               if (error || !success) {
-                                                  [self _handleBiometricsFailureAndDisableIt:false];
-
-                                                  if ([self.delegate respondsToSelector: @selector(biometricsAuthenticationFailed)]) {
-                                                      [self.delegate performSelector: @selector(biometricsAuthenticationFailed)];
-                                                  }
-
+//                                                  [self _handleBiometricsFailureAndDisableIt:false];
+//
+//                                                  if ([self.delegate respondsToSelector: @selector(biometricsAuthenticationFailed)]) {
+//                                                      [self.delegate performSelector: @selector(biometricsAuthenticationFailed)];
+//                                                  }
+                                                  self.biometricsContext = nil;
                                                   return;
                                               }
 
                                               dispatch_async(dispatch_get_main_queue(), ^{
+//                                                  [self _validatePasscode: self._passcode];
                                                   [self _dismissMe];
 
                                                   if ([self.delegate respondsToSelector: @selector(passcodeWasEnteredSuccessfully)]) {
@@ -413,11 +422,13 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
                                           }];
         }
         else {
-            [self _handleBiometricsFailureAndDisableIt:true];
+             self.biometricsContext = nil;
+//            [self _handleBiometricsFailureAndDisableIt:true];
         }
     }
     else {
-        [self _handleBiometricsFailureAndDisableIt:true];
+         self.biometricsContext = nil;
+//        [self _handleBiometricsFailureAndDisableIt:true];
     }
 }
 
@@ -1061,6 +1072,10 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
     _isCurrentlyOnScreen = YES;
 
     PasscodeLockerView * passcodeView = [[[UINib nibWithNibName:@"PasscodeLocker" bundle:nil] instantiateWithOwner:nil options:nil] objectAtIndex:0];
+    LAContext* biometricsCtx = [[LAContext alloc] init];
+    if (_allowUnlockWithBiometrics && @available(iOS 11.0, *)) {
+        [passcodeView configureWithBiometryType:biometricsCtx.biometryType andFingerImage:[self imageForFingerPrint] andFaceImage:[self imageForFaceId]];
+    }
     passcodeView.passcodeButtonDelegate = self;
     self.internalPasscodeView = passcodeView;
     [self.view addSubview:passcodeView];
@@ -1993,7 +2008,7 @@ UIInterfaceOrientationMask UIInterfaceOrientationMaskFromOrientation(UIInterface
 - (void) didPressPasscodeButton:(UIButton *)sender {
     if (self.isTempararlyDisabled) { return; }
     // Delete button
-    if (sender.currentImage != nil) {
+    if (sender.tag == 1000) {
         if (self.updatedEnteringPasscode.length < 1) { return; }
         for (UITextField * textField in self.digitTextFieldsArray.reverseObjectEnumerator) {
             if (textField.isSecureTextEntry) {
@@ -2005,6 +2020,11 @@ UIInterfaceOrientationMask UIInterfaceOrientationMaskFromOrientation(UIInterface
         }
         return;
     }
+    if (sender.tag == 1001) {
+        [self _setupFingerPrint];
+        return;
+    }
+
     NSString * symbol = [[sender titleLabel] text];
     NSInteger digit = [symbol integerValue];
     for (UITextField * textField in self.digitTextFieldsArray) {
