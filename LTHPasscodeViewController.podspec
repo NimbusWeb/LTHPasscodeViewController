@@ -93,7 +93,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Localizations", "LTHPasscodeViewController/*.{h,m}"
+  spec.source_files  = "Localizations", "LTHPasscodeViewController/*.{swift,h,m}"
   spec.exclude_files = "LTHPasscodeViewController/Exclude"
 
   spec.public_header_files = "LTHPasscodeViewController/*.h"
