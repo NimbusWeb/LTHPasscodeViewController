@@ -22,6 +22,7 @@
 		2AF19595182C09D5005CE38A /* LTHPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1958F182C09D5005CE38A /* LTHPasscodeViewController.m */; };
 		2AF19596182C09D5005CE38A /* LTHKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF19592182C09D5005CE38A /* LTHKeychainUtils.m */; };
 		A74908891BFBA75E00C6DA16 /* LTHPasscodeViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A74908881BFBA75E00C6DA16 /* LTHPasscodeViewController.bundle */; };
+		D54655F624B5C9BF008FE50C /* LTHPasscodeViewController+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54655F524B5C9BF008FE50C /* LTHPasscodeViewController+Swift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		2AF19592182C09D5005CE38A /* LTHKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = LTHKeychainUtils.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		2AF4E8391848F9FE00AB18EE /* LTHPasscodeViewController Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LTHPasscodeViewController Demo-Info.plist"; sourceTree = "<group>"; };
 		A74908881BFBA75E00C6DA16 /* LTHPasscodeViewController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LTHPasscodeViewController.bundle; sourceTree = "<group>"; };
+		D54655F524B5C9BF008FE50C /* LTHPasscodeViewController+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LTHPasscodeViewController+Swift.swift"; sourceTree = "<group>"; };
 		E5FE63591BA05DCF00427B5F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 				7D06D11D191B842B00D399E8 /* Localizations */,
 				2AF1958E182C09D5005CE38A /* LTHPasscodeViewController.h */,
 				2AF1958F182C09D5005CE38A /* LTHPasscodeViewController.m */,
+				D54655F524B5C9BF008FE50C /* LTHPasscodeViewController+Swift.swift */,
 				0624FF91246D30EC0024903D /* PasscodeAsset.xcassets */,
 				0624FF9A246D75400024903D /* PasscodeLocker.xib */,
 				0624FF9E246D7BDB0024903D /* PasscodeLockerView.h */,
@@ -254,6 +257,7 @@
 				2AF19596182C09D5005CE38A /* LTHKeychainUtils.m in Sources */,
 				2AE8001A17D9503000DBDE63 /* LTHAppDelegate.m in Sources */,
 				0624FFA0246D7BDB0024903D /* PasscodeLockerView.m in Sources */,
+				D54655F624B5C9BF008FE50C /* LTHPasscodeViewController+Swift.swift in Sources */,
 				2AF19595182C09D5005CE38A /* LTHPasscodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
