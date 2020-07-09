@@ -1499,8 +1499,7 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
 - (void)_resetTextFields {
     // If _allowUnlockWithBiometrics == true, but _isUsingBiometrics == false,
     // it means we're just launching, and we don't want the keyboard to show.
-    if (![_passcodeTextField isFirstResponder]
-        && (!(_allowUnlockWithBiometrics || _isUsingBiometrics) || _useFallbackPasscode)) {
+    if (![_passcodeTextField isFirstResponder]) {
         // It seems like there's a glitch with how the alert gets removed when hitting
         // cancel in the Touch ID prompt. In some cases, the keyboard is present, but invisible
         // after dismissing the alert unless we call becomeFirstResponder with a short delay
