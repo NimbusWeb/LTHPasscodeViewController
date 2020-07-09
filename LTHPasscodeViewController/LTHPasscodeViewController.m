@@ -555,7 +555,7 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     // If _isCurrentlyOnScreen is true at this point,
     // it means the back button was tapped, so we need to reset.
     if ([self isMovingFromParentViewController] && !_hidesBackButton && _isCurrentlyOnScreen) {
@@ -563,7 +563,7 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
         return;
     }
 
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
 
     if (!_displayedAsModal && !_displayedAsLockScreen) {
         [self textFieldShouldEndEditing:_passcodeTextField];
@@ -743,7 +743,7 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
 
 - (void)_setupDigitFields {
     [_digitTextFieldsArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull textField, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (self.internalPasscodeView == nil) { [textField removeFromSuperview]; }
+        [textField removeFromSuperview];
     }];
     [_digitTextFieldsArray removeAllObjects];
 
