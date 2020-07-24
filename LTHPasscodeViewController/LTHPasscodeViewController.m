@@ -743,7 +743,9 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
 
 - (void)_setupDigitFields {
     [_digitTextFieldsArray enumerateObjectsUsingBlock:^(UITextField * _Nonnull textField, NSUInteger idx, BOOL * _Nonnull stop) {
-        [textField removeFromSuperview];
+        if (![[self.internalPasscodeView textFieldsArray] containsObject:textField]) {
+            [textField removeFromSuperview];
+        }
     }];
     [_digitTextFieldsArray removeAllObjects];
 
