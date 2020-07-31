@@ -446,5 +446,8 @@
  @brief  Resets the passcode.
  */
 - (void)resetPasscode;
-
+/**
+ @brief Force rotate view controller in correct orientation
+ */
+-(void)rotateAccordingToStatusBarOrientationAndSupportedOrientations;
 @end
