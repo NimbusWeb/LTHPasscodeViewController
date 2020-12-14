@@ -540,11 +540,11 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
         }
         _animatingView.hidden = NO;
     }
-    if (_isUsingBiometrics && !_isUserChangingPasscode && !_isUserBeingAskedForNewPasscode && !_isUserConfirmingPasscode && !_isUserEnablingPasscode && !_isUserSwitchingBetweenPasscodeModes && !_isUserTurningPasscodeOff) {
+    if (/*_isUsingBiometrics &&*/ !_isUserChangingPasscode && !_isUserBeingAskedForNewPasscode && !_isUserConfirmingPasscode && !_isUserEnablingPasscode && !_isUserSwitchingBetweenPasscodeModes && !_isUserTurningPasscodeOff) {
         if (self.internalPasscodeView == nil) {
             [_passcodeTextField resignFirstResponder];
         }
-        _animatingView.hidden = _isUsingBiometrics;
+        _animatingView.hidden = YES;//_isUsingBiometrics;
     }
 }
 
@@ -1632,7 +1632,7 @@ static const NSInteger LTHMaxPasscodeDigits = 10;
     // just closed - it also calls UIApplicationDidBecomeActiveNotification
     // and if we open for changing / turning off really fast, it will call this
     // after viewWillAppear, and it will hide the UI.
-    if (_isUsingBiometrics && !_useFallbackPasscode && _displayedAsLockScreen) {
+    if (/*_isUsingBiometrics &&*/ !_useFallbackPasscode && _displayedAsLockScreen) {
         _animatingView.hidden = YES;
         [_passcodeTextField resignFirstResponder];
     }
